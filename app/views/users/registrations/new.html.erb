@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title> Registrati - Spacebook </title>
+
+</head>
+
+<body class="bg-primary">
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center mt-5">
+                        <div class="col-lg-7">
+                            <div class="card mt-5">
+                                <div class="card-header"><h3 class="text-center font-weight-light my-4">Registrati</h3></div>
+                                <div class="card-body">
+                                    <!-- Form -->
+                                    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+                                        <div class="form-floating mb-3">
+                                            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", required: :true, id: "email", placeholder: "plh" %>
+                                            <label class="form-c-label" for="email"> Email </label>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <%= f.password_field :password, class: "form-control", required: :true, id: "password", placeholder: "plh" %>
+                                                    <label class="form-c-label" for="password">
+                                                        Password
+                                                        <% if @minimum_password_length %>
+                                                            (minimo <%= @minimum_password_length %> caratteri)
+                                                        <% end %>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <%= f.password_field :password_confirmation, class: "form-control", required: :true, id: "confirm-password", placeholder: "plh" %>
+                                                    <label class="form-c-label" for="confirm-password"> Conferma password </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-check mb-3">
+                                            <!-- Tendina per selezione ruolo -->
+                                            <!-- <% "f.collection_select(:role, User::ROLES, :to_s, lambda{|i| i.to_s.humanize})" %> -->
+                                            <label class="h5"> Richiedi ruolo Manager </label>
+                                            <%= f.check_box(:requested_manager, { class: "form-check-input", type: "checkbox" }, checked_value = "true", unchecked_value = "false") %>
+                                        </div>
+
+                                        <div class="actions text-center py-3">
+                                            <%= f.submit "Registrati", class:"btn btn-outline-info", type:"submit"%> 
+                                        </div>
+                                    <% end %>
+
+                                    <!-- Links -->
+                                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                        <div id="signLinks">
+                                            <%= render "users/shared/links" %>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
