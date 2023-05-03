@@ -88,7 +88,7 @@
 					<label class="h3 my-3"> <%= (@department).name %> </label>
 					<!-- Tasto per l'eliminazione -->
 					<label class="mx-0 my-0 px-0 py-0" style="float: right" type="button" data-bs-toggle="modal" id="modalCaricamentoButton" data-bs-target="#modalCaricamento">
-						<%= link_to '', @department, method: :delete, data: { confirm: 'Sicuro di voler rimuovere il dipartimento?' }, class: "btn btn-outline-info bi bi-trash my-3" %>
+						<%= link_to '', @department, data: { turbo: true, turbo_method: :delete, turbo_confirm: 'Sicuro di voler rimuovere il dipartimento?' }, class: "btn btn-outline-info bi bi-trash my-3" %>
 					</label>
 				</div>
 				<div class="card-body">
@@ -164,7 +164,7 @@
 									</td>
 									<td>
 										<!-- Tasto per la rimozioe dello spazio inserito -->
-										<%= link_to '', space, method: :delete, data: { confirm: 'Sicuro?' }, class: "btn btn-sm btn-outline-info bi bi-trash", style:"width:100%"%>
+										<%= link_to '', space,data: { turbo: true, turbo_method: :delete, turbo_confirm: 'Sicuro?' }, class: "btn btn-sm btn-outline-info bi bi-trash", style:"width:100%"%>
 									</td>
 								</tr>
 							<% end %>
@@ -210,7 +210,7 @@
 									<td><%= reservation.start_date.mday %>-<%= reservation.start_date.mon %>-<%= reservation.start_date.year %></td>
 									<td><%= reservation.start_date.strftime("%H:%M") %> - <%= reservation.end_date.strftime("%H:%M") %></td>
 									<td><%= reservation.state %></td>
-									<td><%= link_to '', reservation, method: :delete, data: { confirm: 'Sicuro?' }, class: "btn btn-sm btn-outline-info bi bi-trash", style: "width:100%" %>
+									<td><%= link_to '', reservation, data: { turbo: true, turbo_method: :delete, turbo_confirm: 'Sicuro?' }, class: "btn btn-sm btn-outline-info bi bi-trash", style: "width:100%" %>
 								</tr>
 							<% end %>
 							<%

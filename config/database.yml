@@ -11,18 +11,18 @@ default: &default
 
 development:
   adapter: postgresql
-  database: app_name_development
-  username: cool_user
-  password: password
+  database: spacebook_development
+  username: <%= ENV.fetch("POSTGRE_USER")%>
+  password: <%= ENV.fetch("POSTGRE_PASSWORD")%>
   encoding: unicode
   host: localhost
   pool: 5
 
 test:
   adapter: postgresql
-  database: app_name_test
-  username: cool_user
-  password: password
+  database: spacebook_test
+  username: <%= ENV.fetch("POSTGRE_USER")%>
+  password: <%= ENV.fetch("POSTGRE_PASSWORD")%>
   encoding: unicode
   host: localhost
   pool: 5

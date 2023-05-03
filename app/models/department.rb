@@ -14,4 +14,12 @@ class Department < ApplicationRecord
     accepts_nested_attributes_for :reservations         # Permette di aggiornare altre tabelle accedendovi tramite le associazioni
     accepts_nested_attributes_for :quick_reservations   #
     accepts_nested_attributes_for :favourite_spaces     #
+
+    def self.ransackable_attributes(auth_object = nil)
+        ["cap", "citta", "civico", "created_at", "dep_event", "dep_map", "description", "floors", "id", "latitude", "longitude", "manager", "name", "number_of_spaces", "provincia", "updated_at", "user_id", "via","created_at", "dep_name", "department_id", "email", "end_date", "floor", "id", "is_sync", "seat_id", "seat_num", "space_id", "space_name", "start_date", "state", "typology", "updated_at", "user_id"]
+    end
+    
+    def self.ransackable_associations(auth_object = nil)
+        ["favourite_spaces", "quick_reservations", "reservations", "seats", "spaces", "user", "week_days"]
+    end
 end

@@ -169,7 +169,7 @@
 							<td><%= department.manager %></td>
 							<td><%= department.via %>, <%= department.civico %>, <%= department.cap %>, <%= department.citta %>, <%= department.provincia %></td>
 							<td><%= link_to '', department, method: :get, class: "btn btn-sm btn-outline-info bi bi-eye", style: "width:100%"%>
-							<td><%= link_to '', department, method: :delete, data: { confirm: 'Sicuro?' }, class: "btn btn-sm btn-outline-info bi bi-trash", style: "width:100%"%>
+							<td><%= link_to '', department, data: { turbo: true, turbo_method: :delete, turbo_confirm: 'Sicuro?'}, class: "btn btn-sm btn-outline-info bi bi-trash", style: "width:100%"%>
 						</tr>
 					<% end %>
 				</tbody>
@@ -223,7 +223,7 @@
 							<td><%= reservation.start_date.mday %>-<%= reservation.start_date.mon %>-<%= reservation.start_date.year %></td>
 							<td><%= reservation.start_date.strftime('%H:%M') %> - <%= reservation.end_date.strftime('%H:%M') %> </td>
 							<td><%= reservation.state %></td>
-							<td><%= link_to '', reservation, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-info bi bi-trash", style: "width: 100%"%></td>
+							<td><%= link_to '', reservation, data: { turbo: true, turbo_method: :delete, turbo_confirm: 'Sicuro?'}, class: "btn btn-sm btn-outline-info bi bi-trash", style: "width: 100%"%></td>
 						</tr>
 					<% end %>
 				</tbody>
