@@ -81,3 +81,4 @@ gem 'rails-i18n'
 gem 'cancancan'
 gem 'json'
 gem "factory_bot_rails"
+gem 'foreman'

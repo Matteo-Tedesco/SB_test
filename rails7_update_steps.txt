@@ -17,3 +17,10 @@ nei link_to method: :delete va sostituita con data: { turbo: true, turbo_method:
 includere sidenav_toggle nella pipeline degli asset di esbuild
 eliminare tracce di webpacker
 TODO: correggere refresh di pagina dopo eliminazione dipartimento prenotazione o spazio nella view manager_department
+################################################# aggiunta docker ##########################################################################
+sudo groupadd docker # creare gruppo docker
+sudo usermod -aG docker $USER # autorizza l'utente nel gruppo docker
+fare logout e login per aggiornare tabella gruppi
+docker compose build # crea immagine progetto docker
+docker compose up # avvia applicazione
+docker compose run web rake db:drop # comando per eseguire istruzioni all'interno della rete di docker
