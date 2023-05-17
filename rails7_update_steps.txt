@@ -23,8 +23,8 @@ sudo usermod -aG docker $USER # autorizza l'utente nel gruppo docker
 fare logout e login per aggiornare tabella gruppi
 docker compose build # crea immagine progetto docker
 docker compose up # avvia applicazione
-docker compose run <NOME-CONTAINER> <COMANDO> # comando per eseguire istruzioni all'interno della rete di docker compose
-docker exec <NOME-CONTAINER> <COMANDO> # per eseguire comandi sul container app
+docker compose exec <NOME-CONTAINER> <COMANDO> # comando per eseguire istruzioni all'interno della rete di docker compose sul container indicato
+docker exec <NOME-CONTAINER> <COMANDO> # per eseguire comandi sul container indicato
 docker rm -f $(docker ps -a -q) # per rimuovere tutti i container di docker
 docker volume rm $(docker volume ls -q) # per rimouvere tutti i volumi di docker
 docker rmi $(docker image -a -q) # per rimuovere tutte le immagini di docker
