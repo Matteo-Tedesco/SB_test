@@ -1,22 +1,80 @@
-Eseguire questi comandi ad ogni pull: Il primo comando è solo per me perche sono pigro :)
-
-cd Scrivania/ASSI/Spacebook
-
 # nel caso di partenza da 0 ovvero senza ruby etc. seguire le istruzioni
-1) installare rvm e la versione ruby 3.1.1 (specificare la versione altrimenti l'installazione non andrà a buon fine per qualche oscuro motivo)
-2) installare nodejs versione 16.x.x (fondamentale altrimenti nè webpacker nè yarn compileranno)(NVM FORTEMENTE CONSIGLIATO)
-3) fare pull della repo e nella cartella principale spacebook eseguire "bundle install"
-4) installare yarn con comando "npm install --global yarn"
-5) installare webpacker con comando "bundle exec rails webpacker:install"
-6) eseguire l'app con comando "rails s"
+(1) installare rvm e la versione ruby 3.1.1 (specificare la versione altrimenti l'installazione non andrà a buon fine per qualche oscuro motivo)
+(2) installare nodejs versione 16.x.x (fondamentale altrimenti nè webpacker nè yarn compileranno)(NVM FORTEMENTE CONSIGLIATO)
+(3) fare pull della repo e nella cartella principale spacebook eseguire "bundle install"
+(4) installare yarn con comando "npm install --global yarn"
+(5) installare webpacker con comando "bundle exec rails webpacker:install"
+(6) eseguire l'app con comando "rails s"
 
 # dopo ogni pull
-bundle install
-rake db:drop
-rake db:migrate
-rake db:seed
-rake db:test:prepare
-rails s
+./bin/setup
+./bin/dev
 
 # per eseguire tutti i test insieme
 rake
+
+###########################################################################################################################################################################################################################################################################
+# Build up dell'applicazione ##############################################################################################################################################################################################################################################
+
+###########################################################################################################################################################################################################################################################################
+Passaggi Matteo ###########################################################################################################################################################################################################################################################
+
+Crea l'applicazione:
+rails new Spacebook --javascript=esbuild --database=postgresql
+
+###########################################################################################################################################################################################################################################################################
+Passaggi Francesco ########################################################################################################################################################################################################################################################
+
+Genera gli scaffold:
+rails generate scaffold Department user:belongs_to name:string manager:string via:string civico:string cap:string citta:string provincia:string latitude:string longitude:string dep_map:string dep_event:string description:text floors:integer number_of_spaces:integer
+rails generate scaffold TempDep user:belongs_to name:string manager:string via:string civico:string cap:string citta:string provincia:string lat:string lon:string description:text floors:integer number_of_spaces:integer dep_map:string dep_event:string
+rails generate scaffold WeekDay department:belongs_to dep_name:string day:string state:string apertura:datetime chiusura:datetime
+rails generate scaffold TempWeekDay temp_dep:belongs_to dep_name:string day:string state:string apertura:datetime chiusura:datetime
+rails generate scaffold Space department:belongs_to dep_name:string typology:string name:string description:text floor:integer number_of_seats:integer state:string
+rails generate scaffold TempSp temp_dep:belongs_to dep_name:string typology:string name:string description:text floor:integer number_of_seats:integer state:string
+rails generate scaffold Seat space:belongs_to dep_name:string typology:string space_name:string position:integer start_date:datetime end_date:datetime state:string
+rails generate scaffold Reservation user:belongs_to department:belongs_to space:belongs_to seat:belongs_to email:string dep_name:string typology:string space_name:string floor:integer seat_num:integer start_date:datetime end_date:datetime state:string is_sync:string
+rails generate scaffold FavouriteSpace user:belongs_to department:belongs_to space:belongs_to email:string dep_name:string typology:string space_name:string
+rails generate scaffold QuickReservation user:belongs_to department:belongs_to space:belongs_to email:string dep_name:string typology:string space_name:string
+
+Aggiungi funzioni dei controller
+
+Aggiungi html.erb nelle view
+
+Aggiungi "has_many: :NOME, dependent: :destroy" nei models
+
+Aggiungi gli index nelle migrazioni
+
+Aggiungi il seed
+
+###########################################################################################################################################################################################################################################################################
+
+
+
+Programma del corso:
+
+    Linguaggi di markup e HTML:
+######### World Wide Web, HTTP
+######### Linguaggi di markup
+######### HTML e XHTML
+######### HTML5
+######### Fogli di stile per HTML: CSS
+
+    Programmazione Web lato client:
+######### Aspetti dinamici in HTML
+        - Linguaggi di scripting lato client e lato server
+######### JavaScript
+        - Il Document Object Model (DOM) di HTML
+######### JSON
+        - AJAX
+        - Cenni su programmazione lato server
+        - Cenni su PHP e interazione con database relazionali
+        - Cenni su Node.js
+######### Framework e librerie per JavaScript
+######### JQuery
+        - Vue.js
+
+    Il linguaggio XML:
+        - XML
+        - Il Document Object Model di XML
+        - Fogli di stile, XSL e XSLT

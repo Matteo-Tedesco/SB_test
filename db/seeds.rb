@@ -7,22 +7,22 @@
 # Se volete cambiare alcuni dati nel seed assicuratevi che siano della giusta tipologia relativa al campo che state inserendo
 
 # Creazione degli utenti base. Effettuate l'accesso con questi dati per eventuali test.
-@fra_usr = User.create(email: "fra.user@gmail.com",        password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'user')
-@mat_usr = User.create(email: "matteo.user@gmail.com",     password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'user')
-@mic_usr = User.create(email: "michela.user@gmail.com",    password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'user')
-@don_usr = User.create(email: "donia.user@gmail.com",      password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'user', )
+@fra_usr = User.create(email: "fra.user@gmail.com",           password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'user')
+@mat_usr = User.create(email: "matteo.user@gmail.com",        password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'user')
+@mic_usr = User.create(email: "guarino.user@gmail.com",       password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'user')
+@don_usr = User.create(email: "tedesco.user@gmail.com",       password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'user', )
 
 # Creazione degli utenti manager. Effettuate l'accesso con questi dati per eventuali test.
-@fra_man = User.create(email: "fra.manager@gmail.com",     password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'manager')
-@mat_man = User.create(email: "matteo.manager@gmail.com",  password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'manager')
-@mic_man = User.create(email: "michela.manager@gmail.com", password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'manager')
-@don_man = User.create(email: "donia.manager@gmail.com",   password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'manager')
-@manager_vuoto = User.create(email: "test.manager@gmail.com",   password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'manager')
+@fra_man = User.create(email: "fra.manager@gmail.com",        password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'manager')
+@mat_man = User.create(email: "matteo.manager@gmail.com",     password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'manager')
+@mic_man = User.create(email: "guarino.manager@gmail.com",    password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'manager')
+@don_man = User.create(email: "tedesco.manager@gmail.com",    password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'manager')
+@manager_vuoto = User.create(email: "test.manager@gmail.com", password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'manager')
 
 # Creazione degli utenti admin. Effettuate l'accesso con questi dati per eventuali test.
-@fra_adm = User.create(email: "fra.admin@gmail.com",       password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'admin')
-@mic_adm = User.create(email: "michela.admin@gmail.com",   password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'admin')
-@mat_adm = User.create(email: "matteo.admin@gmail.com",  password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'admin')
+@fra_adm = User.create(email: "fra.admin@gmail.com",          password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'admin')
+@mic_adm = User.create(email: "guarino.admin@gmail.com",      password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'admin')
+@mat_adm = User.create(email: "matteo.admin@gmail.com",       password: "Password.0", created_at: Time.zone.now, confirmed_at: Time.zone.now, role: 'admin')
 
 
 # Insieme dei dati per creare i dipartimenti
@@ -40,15 +40,15 @@ dep_set = [
      floors: 4, number_of_spaces: 4
     },
 
-    {user_id: @mic_man.id, name: "Dipartimento di Michela", manager: @mic_man.email,
+    {user_id: @mic_man.id, name: "Dipartimento di Guarino", manager: @mic_man.email,
      via: "Borgo Garibaldi", civico: "12", cap: "00041", citta: " Albano Laziale", provincia: "RM", latitude: "41.748959", longitude: "12.648700",
-     description: "Per gestire o testare questo dipartimento accedi come 'michela.manager@gmail.com'",
+     description: "Per gestire o testare questo dipartimento accedi come 'guarino.manager@gmail.com'",
      floors: 4, number_of_spaces: 4
     },
 
-    {user_id: @don_man.id, name: "Dipartimento di Donia", manager: @don_man.email,
+    {user_id: @don_man.id, name: "Dipartimento di Tedesco", manager: @don_man.email,
      via: "Via mura dei francesi", civico: "10", cap: "00043", citta: "Ciampino", provincia: "RM", latitude: "41.80299", longitude: "12.59893",
-     description: "Per gestire o testare questo dipartimento accedi come 'donia.manager@gmail.com'",
+     description: "Per gestire o testare questo dipartimento accedi come 'tedesco.manager@gmail.com'",
      floors: 4, number_of_spaces: 4
     }
 
@@ -60,13 +60,13 @@ dep_set.each do |dep|
 
     # Insieme dei dati per creare gli orari
     wd_set = [
-        {department_id: curr_dep.id, dep_name: curr_dep.name, day: "Lunedì", state: "Aperto", apertura: DateTime.new(2000,3,9,8,0,0), chiusura: DateTime.new(2000,3,9,20,0,0)},
-        {department_id: curr_dep.id, dep_name: curr_dep.name, day: "Martedì", state: "Aperto", apertura: DateTime.new(2000,3,9,8,0,0), chiusura: DateTime.new(2000,3,9,20,0,0)},
+        {department_id: curr_dep.id, dep_name: curr_dep.name, day: "Lunedì",    state: "Aperto", apertura: DateTime.new(2000,3,9,8,0,0), chiusura: DateTime.new(2000,3,9,20,0,0)},
+        {department_id: curr_dep.id, dep_name: curr_dep.name, day: "Martedì",   state: "Aperto", apertura: DateTime.new(2000,3,9,8,0,0), chiusura: DateTime.new(2000,3,9,20,0,0)},
         {department_id: curr_dep.id, dep_name: curr_dep.name, day: "Mercoledì", state: "Aperto", apertura: DateTime.new(2000,3,9,8,0,0), chiusura: DateTime.new(2000,3,9,20,0,0)},
-        {department_id: curr_dep.id, dep_name: curr_dep.name, day: "Giovedì", state: "Aperto", apertura: DateTime.new(2000,3,9,8,0,0), chiusura: DateTime.new(2000,3,9,20,0,0)},
-        {department_id: curr_dep.id, dep_name: curr_dep.name, day: "Venerdì", state: "Aperto", apertura: DateTime.new(2000,3,9,8,0,0), chiusura: DateTime.new(2000,3,9,13,0,0)},
-        {department_id: curr_dep.id, dep_name: curr_dep.name, day: "Sabato", state: "Chiuso", apertura: DateTime.new(2000,3,9,0,0,0), chiusura: DateTime.new(2000,3,9,0,0,0)},
-        {department_id: curr_dep.id, dep_name: curr_dep.name, day: "Domenica", state: "Chiuso", apertura: DateTime.new(2000,3,9,0,0,0), chiusura: DateTime.new(2000,3,9,0,0,0)},
+        {department_id: curr_dep.id, dep_name: curr_dep.name, day: "Giovedì",   state: "Aperto", apertura: DateTime.new(2000,3,9,8,0,0), chiusura: DateTime.new(2000,3,9,20,0,0)},
+        {department_id: curr_dep.id, dep_name: curr_dep.name, day: "Venerdì",   state: "Aperto", apertura: DateTime.new(2000,3,9,8,0,0), chiusura: DateTime.new(2000,3,9,13,0,0)},
+        {department_id: curr_dep.id, dep_name: curr_dep.name, day: "Sabato",    state: "Chiuso", apertura: DateTime.new(2000,3,9,0,0,0), chiusura: DateTime.new(2000,3,9,0,0,0)},
+        {department_id: curr_dep.id, dep_name: curr_dep.name, day: "Domenica",  state: "Chiuso", apertura: DateTime.new(2000,3,9,0,0,0), chiusura: DateTime.new(2000,3,9,0,0,0)},
     ]
 
     # Creazione degli orari
@@ -76,11 +76,11 @@ dep_set.each do |dep|
 
     # Insieme dei dati per creare gli spazi
     sp_set = [
-        {department_id: curr_dep.id, dep_name: curr_dep.name, typology: "Isola", name: "C", description: "Poche prese di corrente", floor: 1, number_of_seats: 2, state: "Abilitato"},
-        {department_id: curr_dep.id, dep_name: curr_dep.name, typology: "Isola", name: "D", description: "Poche prese di corrente", floor: 1, number_of_seats: 2, state: "Abilitato"},
-        {department_id: curr_dep.id, dep_name: curr_dep.name, typology: "Aula", name: "106", description: "Ben illuminata ", floor: 1, number_of_seats: 4, state: "Abilitato"},
-        {department_id: curr_dep.id, dep_name: curr_dep.name, typology: "Aula", name: "204", description: "Molto ampia", floor: 2, number_of_seats: 8, state: "Abilitato"},
-        {department_id: curr_dep.id, dep_name: curr_dep.name, typology: "Laboratorio", name: "15", description: "", floor: 1, number_of_seats: 3, state: "Abilitato"},
+        {department_id: curr_dep.id, dep_name: curr_dep.name, typology: "Isola",       name: "C",   description: "Poche prese di corrente", floor: 1, number_of_seats: 2, state: "Abilitato"},
+        {department_id: curr_dep.id, dep_name: curr_dep.name, typology: "Isola",       name: "D",   description: "Poche prese di corrente", floor: 1, number_of_seats: 2, state: "Abilitato"},
+        {department_id: curr_dep.id, dep_name: curr_dep.name, typology: "Aula",        name: "106", description: "Ben illuminata ",         floor: 1, number_of_seats: 4, state: "Abilitato"},
+        {department_id: curr_dep.id, dep_name: curr_dep.name, typology: "Aula",        name: "204", description: "Molto ampia",             floor: 2, number_of_seats: 8, state: "Abilitato"},
+        {department_id: curr_dep.id, dep_name: curr_dep.name, typology: "Laboratorio", name: "15",  description: "",                        floor: 1, number_of_seats: 3, state: "Abilitato"},
     ]
 
     # Creazione degli spazi
@@ -115,7 +115,7 @@ dep_set.each do |dep|
                     seat = Seat.create(space_id: sp.id, dep_name: curr_dep.name, typology: sp.typology, space_name: sp.name, position: 1, start_date: @start_date, end_date: @end_date, state: "Active")
 
                     # Aggiunta di alcune prenotazioni
-                    if (curr_dep.name == "Dipartimento di Donia") and (sp.typology == "Laboratorio") and (wd.day == "Venerdì")
+                    if (curr_dep.name == "Dipartimento di Francesco") and (sp.typology == "Laboratorio") and (wd.day == "Venerdì")
                         Reservation.create(user_id: 1, department_id: curr_dep.id, space_id: sp.id, seat_id: seat.id, email: "fra.user@gmail.com",    dep_name: curr_dep.name, typology: sp.typology, space_name: sp.name, floor: sp.floor, seat_num: seat.position, start_date: seat.start_date, end_date: seat.end_date, state: "Active")
                         seat.update(position: seat.position+1)
                         Reservation.create(user_id: 5, department_id: curr_dep.id, space_id: sp.id, seat_id: seat.id, email: "fra.manager@gmail.com", dep_name: curr_dep.name, typology: sp.typology, space_name: sp.name, floor: sp.floor, seat_num: seat.position, start_date: seat.start_date, end_date: seat.end_date, state: "Active")
@@ -124,10 +124,10 @@ dep_set.each do |dep|
                         seat.update(position: seat.position+1)
                     end
 
-                    if (curr_dep.name == "Dipartimento di Donia") and (sp.name == "C") and (wd.day == "Martedì")
-                        Reservation.create(user_id: 1, department_id: curr_dep.id, space_id: sp.id, seat_id: seat.id, email: "donia.user@gmail.com",    dep_name: curr_dep.name, typology: sp.typology, space_name: sp.name, floor: sp.floor, seat_num: seat.position, start_date: seat.start_date, end_date: seat.end_date, state: "Active")
+                    if (curr_dep.name == "Dipartimento di Francesco") and (sp.name == "C") and (wd.day == "Martedì")
+                        Reservation.create(user_id: 1, department_id: curr_dep.id, space_id: sp.id, seat_id: seat.id, email: "fra.user@gmail.com",    dep_name: curr_dep.name, typology: sp.typology, space_name: sp.name, floor: sp.floor, seat_num: seat.position, start_date: seat.start_date, end_date: seat.end_date, state: "Active")
                         seat.update(position: seat.position+1)
-                        Reservation.create(user_id: 5, department_id: curr_dep.id, space_id: sp.id, seat_id: seat.id, email: "donia.manager@gmail.com", dep_name: curr_dep.name, typology: sp.typology, space_name: sp.name, floor: sp.floor, seat_num: seat.position, start_date: seat.start_date, end_date: seat.end_date, state: "Active")
+                        Reservation.create(user_id: 5, department_id: curr_dep.id, space_id: sp.id, seat_id: seat.id, email: "fra.manager@gmail.com", dep_name: curr_dep.name, typology: sp.typology, space_name: sp.name, floor: sp.floor, seat_num: seat.position, start_date: seat.start_date, end_date: seat.end_date, state: "Active")
                         seat.update(position: seat.position+1)
                     end
                 end
@@ -136,5 +136,3 @@ dep_set.each do |dep|
     end
 
 end
-
-
