@@ -1,0 +1,88 @@
+Da rivedere:
+    app/assets
+    app/javascript
+
+Francesco(Da verificare):
+
+    controllers:
+        application_controller.rb
+            SQLite3::ConstraintException
+
+        home_controller.rb
+            # Formattazione de dati per il meteo
+
+        reservation_controller.rb
+            # Per ognuno dei params
+
+    models:
+        application_record.rb
+
+########################################################################################################################################################################################################
+Matteo(da aggiungere):
+
+    config/routes.rb
+        resources :tasks
+
+        devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: "registrations", passwords: "passwords", confirmations: "confirmations", sessions: "sessions" }
+
+        # Generali
+            get "/leaflet_osm_map", to: "leaflet_osm#index"
+
+        resources :users do # CONTROLLA LE MAIL DI CONFERMA E IN CASO DI ASSENZA PER NUOVA REGISTRAZIONE NE INVIA UNA (CONTROLLARE application_mailer PER ULTERIORI DETTAGLI)
+        devise_scope :user do     # CONTROLLA IL TIMEOUT DELLA SESSIONE DELL'UTENTE 
+
+    controllers:
+        confirmations_controller.rb
+        leaflet_osm_controller.rb
+        passwords_controller.rb
+        session_timeout_controller.rb
+        session_controller.rb
+        users_controller.rb
+
+        application_controller.rb
+            before_action :configure_permitted_parameters, if: :devise_controller? # Aggiunge parametri al controllo di sicurezza di devise
+            helper_method :get_coord
+
+            def configure_permitted_parameters
+            rescue_from CanCan::AccessDenied
+            def get_coord ind
+
+        departments_controller.rb
+
+            def manager_map_initializer
+            def new_dep_map manager_name
+
+        personal_area_controller.rb
+            helper_method :load_events
+            CALENDAR_ID = 'primary'
+
+            def load_events
+
+        reservations_controller.rb
+            def sync_event res
+            def get_google_calendar_client current_user
+            def get_event res
+            def remove_from_calendar reservation
+
+    helpers:
+        calendar_helper.rb
+        leaflet_osm_helper.rb
+        user_helper.rb
+
+    app/mailers:
+        admin_mailer.rb
+        user_mailer.rb
+
+    models:
+        ability.rb
+        user.rb ( Ricordati di aggiungere gli has_many all'inizio del model )
+
+    views:
+        admin_mailer
+        layouts
+            mailer.html.rb
+            mailer.text.rb
+        leaflet_osm
+        simple_calendar
+        user_mailer
+        users
