@@ -17,6 +17,17 @@ Francesco(Da verificare):
     models:
         application_record.rb
 
+    views:
+        departments
+            manager_department(Grafico)
+
+        layouts
+            modal_loading
+                <!-- <p class="small" style="color: grey"> In caso di caricamento prolungato: ricaricare la pagina. </p> -->
+
+        temp_deps
+            new (213) <!-- Icona interattiva per visualizzare il collapse della descrizione -->
+
 ########################################################################################################################################################################################################
 Matteo(da aggiungere):
 
@@ -86,3 +97,34 @@ Matteo(da aggiungere):
         simple_calendar
         user_mailer
         users
+
+        departments
+            manager_department
+                <!-- Editor mappa interattiva -->
+
+        home
+            index
+                <!-- Mappa per la geolocalizzazione -->
+
+        layouts
+            application
+                <!-- Inizializza il timer di inattività -->
+            mailer.html.erb
+            mailer.text.erb
+
+        leaflet_osm
+
+        management
+            index
+                <!-- Locking reason -->
+                <!-- Blocca/Sblocca + Rendi Manager-->
+
+        personal_area
+            index
+                <!-- CALENDARIO/GOOGLE CALENDARAL. AL MOMENTO SE SI È COLLEGATI TRAMITE GOOGLE IL CALENDARIO VIENE FORMATO CON I PROSSIMI 10 EVENTI ALL'INTERNO -->
+
+        simple_calendar
+
+        temp_deps
+
+        user_mailer

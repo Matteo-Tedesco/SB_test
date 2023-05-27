@@ -163,8 +163,8 @@
 		</div>
 		<div class="col-lg-4 pb-4 ">
 			<div class="row">
+				<!-- Mappa per la geolocalizzazione -->
 				<div class="col-lg-12 col-md-6">
-					<!-- Mappa per geolocalizzazione -->
 					<div class="card mb-4" style="height: 95%">
 						<div class="card-header text-center">
 							<label class="h3 mt-3 mb-1"> Mappa <i class="bi bi-map mx-2"></i> </label>
@@ -225,7 +225,9 @@
 									geocoder: L.Control.Geocoder.nominatim(),
 								}).addTo(map);
 							</script>
-							<%if current_user%> <!-- Se l'utente è registrato viene geolocalizzato e la mappa ricentrata sulla sua posizione approssimativa -->
+
+							<!-- Se l'utente è registrato viene geolocalizzato e la mappa ricentrata sulla sua posizione approssimativa -->
+							<%if current_user%>
 								<script>
 									centra_mappa("<%= current_user.latitude %>","<%= current_user.longitude %>",'La tua posizione', 'Posizione approssimativa','9','false');
 								</script>

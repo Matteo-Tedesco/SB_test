@@ -11,7 +11,8 @@
 	<h2 class="text-white mb-4"> Benvenuto nella tua area personale </h2>
 
 	<div class="row">
-		<!-- Calendario per sincronizzazione AL MOMENTO SE SI È COLLEGATI TRAMITE GOOGLE IL CALENDARIO VIENE FORMATO CON I PROSSIMI 10 EVENTI ALL'INTERNO -->
+
+		<!-- CALENDARIO/GOOGLE CALENDARAL. AL MOMENTO SE SI È COLLEGATI TRAMITE GOOGLE IL CALENDARIO VIENE FORMATO CON I PROSSIMI 10 EVENTI ALL'INTERNO -->
 		<div class="col-lg-7 pb-2">
 			<div class="card">
 				<div class="card-header">
@@ -22,8 +23,12 @@
 					<% end %>
 				</div>
 				<div class="card-body px-3" style="display: flex; align-items: center">
-					<% if current_user.access_token!=nil%> <!-- SE IL TOKEN È PRESENTE VIENE INVIATA LA RICHIESTA A CALENDAR -->
+
+					<!-- SE IL TOKEN È PRESENTE VIENE INVIATA LA RICHIESTA A CALENDAR -->
+					<% if current_user.access_token!=nil%>
 						<% @hash=load_events %>
+
+						<!-- SE IL CALENDAR DELL'UTENTE PRESENTA EVENTI CREA IL CALENDARIO CON ESSI -->
 						<% if @hash!=nil %>
 							<%= month_calendar do |date| %>
 								<%= date.day %>
@@ -34,12 +39,15 @@
 									<% end %>
 								</div>
 							<% end %>
+						<!-- SE IL CALENDAR DELL'UTENTE NON PRESENTA EVENTI CREA CALENDARIO VUOTO -->
 						<% else %>
-							<%= month_calendar do |date| %> <!-- SE IL CALENDAR DELL'UTENTE NON PRESENTA EVENTI CREA CALENDARIO VUOTO -->
+							<%= month_calendar do |date| %>
 								<%= date.day %>
 							<% end %>
 						<% end %>
-					<% else %>                              <!-- IN CASO L'ACCESSO NON SIA STATO EFFETTUATO TRAMITE GOOGLE VIENE PRODOTTO UN CALENDARIO SENZA EVENTI -->
+
+					<!-- IN CASO L'ACCESSO NON SIA STATO EFFETTUATO TRAMITE GOOGLE VIENE PRODOTTO UN CALENDARIO SENZA EVENTI -->
+					<% else %>
 						<%= month_calendar do |date| %>
 							<%= date.day %><br>
 							<% Reservation.where(user_id: current_user.id).each do |reservation| %>

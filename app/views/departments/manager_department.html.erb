@@ -225,13 +225,14 @@
 		</div>
 	</div>
 
+	<!-- Editor mappa interattiva -->
 	<div class="row mt-4">
 		<div class="col-lg-12">
-			<!-- Editor mappa interattiva  -->
 			<div class="card" style="height: 100%">
 				<div class="card-header text-center">
 					<h3 class="font-weight-light my-3"> Mappa interattiva </h3>
 				</div>
+				<!-- Se la mappa è gia inizializzata mostra la mappa -->
 				<% if @department.dep_map != nil %>
 					<div class="card-body">
 						<div id="chartDesigner"></div>
@@ -247,6 +248,7 @@
 					<div class="card-footer">
 						<button class="btn btn-outline-info" style="width: 100%"> Elimina pianta </button>
 					</div>
+				<!-- Altrimenti propone al manager di inizializzarla la mappa -->
 				<% else %>
 					<div class="card-body text-center">
 						<p class="my-5 py-5">
