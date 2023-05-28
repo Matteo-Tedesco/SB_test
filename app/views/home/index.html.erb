@@ -149,9 +149,9 @@
 											<%= form.text_field :selected_dep_name, value: "#{department.name}", style: "display: none" %>
 											<%= form.text_field :filter, value: "Dep", style: "display: none" %>
 											<label class="mx-0 my-0 px-0 py-0" style="width: 100%" type="button" data-bs-toggle="modal" id="modalCaricamentoButton" data-bs-target="#modalCaricamento">
-												<button class="btn btn-sm btn-outline-info" style="float: right; width: 100%"><i class='bi bi-cursor mx-2'></i>Prenota</button>
+												<button data-turbo="false" class="btn btn-sm btn-outline-info" style="float: right; width: 100%"><i class='bi bi-cursor mx-2'></i>Prenota</button>
 											</label>
-											<% form.submit '' , "data-turbo" => false%>
+											<% form.submit '' %>
 										<% end %>
 									</div>
 								</div>

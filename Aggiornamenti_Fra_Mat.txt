@@ -1,3 +1,5 @@
+git commit -m "Aggiunto scss revisionato + aggiunte immagini del sito + redirect_to in spaces_controller destroy + aggiornati bottoni link_to e parametri data { turbo... } + modificata pagina delle informazioni + leggere modifiche ad altre views"
+
 Da rivedere:
     app/assets
     app/javascript
@@ -5,6 +7,7 @@ Da rivedere:
 Francesco(Da verificare):
 
     controllers:
+
         application_controller.rb
             SQLite3::ConstraintException
 
@@ -14,19 +17,27 @@ Francesco(Da verificare):
         reservation_controller.rb
             # Per ognuno dei params
 
+        spaces_controller.rb
+            Aggiungi redirect_to alla destroy
+
     models:
         application_record.rb
 
     views:
+
+        Aggiungi data-turbo="false" ai bottoni
+
         departments
+            spaces
             manager_department(Grafico)
+
+        management
+            controlla link_to show department
 
         layouts
             modal_loading
                 <!-- <p class="small" style="color: grey"> In caso di caricamento prolungato: ricaricare la pagina. </p> -->
 
-        temp_deps
-            new (213) <!-- Icona interattiva per visualizzare il collapse della descrizione -->
 
 ########################################################################################################################################################################################################
 Matteo(da aggiungere):

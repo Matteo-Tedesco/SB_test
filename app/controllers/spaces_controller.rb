@@ -26,6 +26,10 @@ class SpacesController < ApplicationController
 
   def destroy
     @space.destroy
+
+    respond_to do |format|
+      format.html { redirect_to request.referrer, notice: "Spazio rimosso correttamente." }
+    end
   end
 
   private

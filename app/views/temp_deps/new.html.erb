@@ -327,7 +327,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <!-- Tasto per la rimozioe dello spazio inserito -->
-                                                                        <%= link_to '', jcs, method: :delete, data: { confirm: 'Sicuro?' }, class: "btn btn-sm btn-outline-info bi bi-trash", style: "width:100%"%>
+                                                                        <%= link_to '', jcs, data: { turbo: true, turbo_method: :delete, turbo_confirm: 'Sicuro?' }, class: "btn btn-sm btn-outline-info bi bi-trash", style: "width:100%"%>
                                                                     </td>
                                                                 </tr>
                                                             <% end %>
@@ -400,12 +400,12 @@
                                                 <div class="col-lg-6">
                                                     <!-- Mostra il tasto per la conferma dei dati temporanei inseriti e l'avvio della creazione degli oggetti effettivi -->
                                                     <label class="mx-0 my-0 px-0 py-0" style="width:100%" type="button" data-bs-toggle="modal" id="modalCaricamentoButton" data-bs-target="#modalCaricamento">
-                                                        <%= button_to 'Conferma la registrazione del dipartimento e i relativi spazi', '/manager_department', method: :get, data: { confirm: 'Sicuro di voler registrare il dipartimento con i dati riportati in questa schermata?' }, class: "btn btn-outline-info", style: "width:100%" %>
+                                                        <%= button_to 'Conferma la registrazione del dipartimento e i relativi spazi', '/manager_department', method: :get, data: { turbo_confirm: 'Sicuro di voler registrare il dipartimento con i dati riportati in questa schermata?' }, class: "btn btn-outline-info", style: "width:100%" %>
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <!-- Tasto per l'annullamento della procedura di registrazione -->
-                                                    <%= link_to 'Annulla la registrazione del dipartimento e i relativi spazi', mydep, method: :delete, data: { confirm: 'Sicuro di voler annullare la procedura? Dovrai comunque registrare il tuo dipartimento al prossimo accesso.' }, class: "btn btn-outline-info", style: "width:100%" %>
+                                                    <%= link_to 'Annulla la registrazione del dipartimento e i relativi spazi', mydep, data: { turbo: true, turbo_method: :delete, turbo_confirm: 'Sicuro di voler annullare la procedura? Dovrai comunque registrare il tuo dipartimento al prossimo accesso.' }, class: "btn btn-outline-info", style: "width:100%" %>
                                                 </div>
                                             </div>
                                         </div>
