@@ -1,2 +1,0 @@
-module FavouriteSpacesHelper
-end
