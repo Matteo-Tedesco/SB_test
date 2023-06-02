@@ -1,0 +1,68 @@
+version: '3.8'
+services:
+
+  nginx:
+    container_name: 'nginx'
+    build:
+      context: .
+      dockerfile: nginx/nginx.dockerfile
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/certs:/etc/nginx/certs
+    links:
+      - web:web
+    depends_on:
+      - web
+    ports:
+      - "8080:80"
+      - "8083:443"
+    networks:
+      - app-network
+
+  db:
+    container_name: 'sb_postgre'
+    image: postgres
+    volumes:
+      - ./dbdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRE_USER}
+      POSTGRES_PASSWORD: ${POSTGRE_PASSWORD}
+    ports:
+      - "5433:5432"
+    networks:
+      - app-network
+
+  web:
+    container_name: 'sb_app'
+    build:
+      context: ./rails
+      dockerfile: app.dockerfile
+      args:
+        APP_USER_UID: ${APP_USER_UID}
+        APP_GROUP_GID: ${APP_GROUP_GID}
+    command: bash -c "rm -f tmp/pids/server.pid && ./bin/dev"
+    volumes:
+      - ./rails:/opt/app
+    ports:
+      - 3000
+    depends_on:
+      - db
+    environment:
+      POSTGRE_HOST: ${POSTGRE_HOST}
+      POSTGRE_USER: ${POSTGRE_USER}
+      POSTGRE_PASSWORD: ${POSTGRE_PASSWORD}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      SEATS_IO_SECRET: ${SEATS_IO_SECRET}
+      SEATS_IO_PUBLIC: ${SEATS_IO_PUBLIC}
+      ABSTRACT_EMAIL_KEY: ${ABSTRACT_EMAIL_KEY}
+      ABSTRACT_GEO_KEY: ${ABSTRACT_GEO_KEY}
+    tty: true
+    stdin_open: true
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,6 @@
+# Ignore ssl certs nginx
+/nginx/certs
+# Ignore local db data
+/pgdata
+# Ignore .env
+.env

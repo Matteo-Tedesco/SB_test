@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  department: one
+  dep_name: MyString
+  typology: MyString
+  name: MyString
+  description: MyText
+  floor: 1
+  number_of_seats: 1
+  state: MyString
+
+two:
+  department: two
+  dep_name: MyString
+  typology: MyString
+  name: MyString
+  description: MyText
+  floor: 1
+  number_of_seats: 1
+  state: MyString

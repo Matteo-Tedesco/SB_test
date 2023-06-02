@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  space: one
+  dep_name: MyString
+  typology: MyString
+  space_name: MyString
+  position: 1
+  start_date: 2023-05-26 11:16:59
+  end_date: 2023-05-26 11:16:59
+  state: MyString
+
+two:
+  space: two
+  dep_name: MyString
+  typology: MyString
+  space_name: MyString
+  position: 1
+  start_date: 2023-05-26 11:16:59
+  end_date: 2023-05-26 11:16:59
+  state: MyString

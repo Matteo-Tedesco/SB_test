@@ -1,0 +1,314 @@
+<!-- Pagina Home -->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+
+	<title> Home - Spacebook </title>
+
+	<%# Leaflet %>
+
+	<%= stylesheet_link_tag 'leaflet-routing-machine', media: 'all', 'data-turbo-track': 'reload' %>
+	<!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" /> -->
+	<%= stylesheet_link_tag 'leaflet', media: 'all', 'data-turbo-track': 'reload' %>
+	<!-- <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" /> -->
+    <!-- <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script> -->
+    <%= javascript_include_tag 'Control.Geocoder'%>
+</head>
+
+<body>
+	<div class="row">
+
+		<!-- Introduzione -->
+		<div class="col-lg-8">
+			<div class="card" style="height:100%">
+				<div class="card-header" style="height:100%">
+					<label class="h2 mt-3 mb-1"> Benvenuto </label>
+					<p class="card-text mb-2">
+						Su Spacebook puoi prenotare gli spazi in pochi e semplici passi! Esplora liberamente i dipartimenti quì sotto e trova quello che ti interessa.<br>
+						Puoi effettuare le prenotazioni sia visitando 'Effettua prenotazione' nel menù laterale, sia facendo click su "prenota" nel dipartimento che ti interessa.
+						Per saperne di più visita la pagina di informazioni accessibile dal menù laterale.<br>
+						Speriamo ti troverai bene nel nostro sito. Buona navigazione!<br>
+						<% if !user_signed_in? %>
+							(per effettuare una prenotazione <%= link_to "accedi", "/users/sign_in", class: "colorLink" %> o <%= link_to "registrati", "/users/sign_up", class: "colorLink" %>)
+						<% end %>
+					</p>
+				</div>
+			</div>
+		</div>
+		<!-- Card per la prenotazione rapida -->
+		<div class="col-lg-4">
+			<% if user_signed_in? %>
+				<div class="card mb-4" style="height:100%">
+					<div class="card-header" style="height:100%">
+						<table width="100%">
+							<tr>
+								<% if @quick_reservation %>
+									<td>
+										<label class="h3 mt-3 mb-1"> Prenotazione rapida </label>
+										<div class="small"> Verrà prenotato il primo orario disponibile in data odierna per lo spazio sotto riportato </div>
+									</td>
+									<td class="px-2">
+										<label class="mx-0 my-0 px-0 py-0" style="float: right" type="button" data-bs-toggle="modal" id="modalCaricamentoButton" data-bs-target="#modalCaricamento">
+											<a class="btn btn-sm btn-outline-info" onclick="window.location.href='/make_quick_res'"> <i class='bi bi-cursor'></i> <br> Prenota </a>
+										</label>
+									</td>
+								<% else %>
+									<td>
+										<label class="h3 mt-3 mb-1"> Prenotazione rapida </label>
+										<div class="small"> Verrà prenotato il primo orario disponibile in data odierna per lo spazio che imposterai </div>
+									</td>
+									<td class="px-2">
+										<label class="mx-0 my-0 px-0 py-0" style="float: right" type="button" data-bs-toggle="modal" id="modalCaricamentoButton" data-bs-target="#modalCaricamento">
+											<a class="btn btn-sm btn-outline-info" style="float: right" onclick="window.location.href='/make_reservation'"> <i class='bi bi-pen'></i> <br> Imposta </a>
+										</label>
+									</td>
+								<% end %>
+							</tr>
+						</table>
+					</div>
+					<div class="card-footer" style="height:100%">
+						<% if @quick_reservation %>
+							<div class="row pt-2">
+								<div class="col-lg-6"> <label class="h5 my-1"> Dipartimento: </label> </div>
+								<div class="col-lg-6"> <%= @quick_reservation.dep_name %> </div>
+								<div class="col-lg-6"> <label class="h5 my-1"> Tipologia - Spazio: </label> </div>
+								<div class="col-lg-6"> <%= @quick_reservation.typology %> - <%= @quick_reservation.space_name %> </div>
+							</div>
+						<% else %>
+							Non impostata
+						<% end %>
+					</div>
+				</div>
+			<% end %>
+		</div>
+
+		<!-- Barra di ricerca per dipartimenti -->
+		<div class="col-lg-12">
+			<%= search_form_for(@dep, url: home_path, method: :get, class: "d-none d-md-inline-block form-inline my-2") do |f| %>
+				<table width="100%" class="mt-4">
+					<tr>
+						<td><%= f.search_field :name_or_via_or_civico_or_cap_or_citta_or_provincia_or_manager_i_cont_any, class: "form-control", placeholder: "Cerca un dipartimento...", id: "depSearchHome"%></td>
+						<td width="10%"><button class="btn btn-outline-info bi bi-search mx-2" id="btnNavbarSearch"><% f.submit "" %></button></td>
+					</tr>
+				</table>
+			<% end %>
+		</div>
+
+		<!-- Lista di tutti i dipartimenti dell'applicazione -->
+		<div class="col-lg-8 overflow-auto">
+			<div class="row">
+				<% @departments.each do |department| %>
+					<div class="col-xl-6 pb-4">
+						<!-- Card che mostra il dipartimento corrente -->
+						<div class="card" style="height: 100%">
+							<div class="card-header">
+								<label class="h3 mt-3 mb-1"> <%= department.name %> </label>
+								<div class="small">
+									<%= department.via %>, <%= department.civico %>, <%= department.cap %>, <%= department.citta %>, <%= department.provincia %>
+									<label onclick='centra_mappa("<%= department.latitude %>","<%= department.longitude %>","<%= department.name %>", "<%=department.via+" "+department.civico+" "+department.citta+" "+department.cap %>","18","false")', class="colorLink bi bi-geo-fill px-2"> </label>
+								</div>
+							</div>
+							<div class="card-body">
+
+								<!-- Icona interattiva per visualizzare il collapse della descrizione -->
+								<label class="h5 py-1" data-bs-toggle="collapse" data-bs-target="#dep<%= department.id %>DescCollapse"> Descrizione <i class="colorLink bi bi-card-text"></i> </label> 
+								<!-- Collapse della descrizione -->
+								<div class="collapse" id="dep<%= department.id %>DescCollapse"> <%= department.description %> </div><br>
+
+								<!-- Icona interattiva per visualizzare il collapse degli orari -->
+								<label class="h5 py-1" data-bs-toggle="collapse" data-bs-target="#dep<%= department.id %>OrariCollapse" aria-expanded="false"> Orari <i class="colorLink bi bi-clock"></i> </label> 
+								<!-- Collapse degli orari -->
+								<div class="collapse" id="dep<%= department.id %>OrariCollapse">
+									<!-- Raccoglie tutti gli orari del dipartimento e li inserisce nel dropdown -->
+									<% @week_days.where(department_id: department.id).each do |wd| %>
+										<div class="row">
+											<div class="col-sm-3"> <h6><%= wd.day %></h6> </div>
+											<div class="col-sm-9"> <%= wd.apertura.strftime('%H:%M') %>-<%= wd.chiusura.strftime('%H:%M') %> </div>
+										</div>
+									<% end %>
+								</div>
+								<br>
+
+								<label class="label h5 py-1"> Numero piani: </label> <%= department.floors %><br>
+								<label class="label h5 py-1"> Spazi disponibili: </label> <%= department.number_of_spaces %><br>
+								<label class="label h5 py-1"> Email del manager: </label> <%= department.manager %><br>
+							</div>
+							<div class="card-footer">
+								<div class="row">
+									<!-- Bottone per il meteo -->
+									<div class="col-lg-6">
+										<%= form_with url: get_meteo_info_path, local: true, method: :post do |form| %>
+											<%= form.number_field :lati, value: "#{department.latitude}", :style=>'display:none'%>
+											<%= form.number_field :long, value: "#{department.longitude}", :style=>'display:none'%>
+											<label class="mx-0 my-0 px-0 py-0" style="width: 100%" type="button" data-bs-toggle="modal" id="modalCaricamentoButton" data-bs-target="#modalCaricamento">
+												<button class="btn btn-sm btn-outline-info" style="float: right; width: 100%" data-turbo = false><i class='bi bi-cloud-sun mx-2'></i>Meteo</button>
+											</label>
+											<%= form.submit '', style: "display: none" %>
+										<% end %>
+									</div>
+									<!-- Bottone per prenotare sul dipartimento corrente -->
+									<div class="col-lg-6">
+										<%= form_with url: set_department_path, local: true, method: :post do |form| %>
+											<%= form.text_field :selected_dep_name, value: "#{department.name}", style: "display: none" %>
+											<%= form.text_field :filter, value: "Dep", style: "display: none" %>
+											<button data-turbo="false" class="btn btn-sm btn-outline-info" style="float: right; width: 100%"><i class='bi bi-cursor mx-2'></i>Prenota</button>
+											<% form.submit '' %>
+										<% end %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		</div>
+
+		<div class="col-lg-4 pb-4 ">
+			<div class="row">
+
+				<!-- Mappa per la geolocalizzazione -->
+				<div class="col-lg-12 col-md-6">
+					<div class="card mb-4" style="height: 95%">
+						<div class="card-header text-center">
+							<label class="h3 mt-3 mb-1"> Mappa <i class="bi bi-map mx-2"></i> </label>
+						</div>
+						<div class="card-body pt-2">
+							<label class="h5 mb-0 px-2"> Zoom </label>
+							<label class="h5 mb-0 px-2" style="float: right"> Inserisci i dati e premi invio per confermare </label>
+							<div id="map"></div>
+
+							<!-- Utilizzo LEAFLET e OSM per generare una mappa centrata su Roma -->
+							<script>
+								var map = L.map('map').setView([41.89333, 12.48302], 11);
+								L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+									maxZoom: 19,
+									attribution: '© OpenStreetMap'
+								}).addTo(map);
+
+								var EdIcon = L.icon({
+									iconUrl: '<%=image_path('pin.png')%>',
+									shadowUrl: '<%=image_path('marker-shadow.png')%>',
+									iconSize:     [30, 50], // size of the icon
+									shadowSize:   [30, 64], // size of the shadow
+									iconAnchor:   [17, 58], // point of the icon which will correspond to marker's location
+									shadowAnchor: [9, 75],  // the same for the shadow
+									popupAnchor:  [-3, -60] // point from which the popup should open relative to the iconAnchor
+								});
+							</script>
+
+							<% @departments.each do |department| %>
+								<script>
+									L.marker(["<%=department.latitude%>", "<%=department.longitude%>"],{icon: EdIcon}).addTo(map).bindPopup("<%=department.name%>"+"<br>"+"<%=department.via+" "+department.civico+" "+department.citta+" "+department.cap %>");
+								</script>
+							<%end%>
+
+							<script>
+								document.getElementById("centra").onclick = function() {centra_mappa()};
+								function centra_mappa(lat, lon, dep_n, dep, zoom, marker) {
+									map.setView([lat, lon], parseInt(zoom));
+									var myIcon = L.icon({
+										iconUrl: '<%=image_path('marker-icon-2x.png')%>',
+										shadowUrl: '<%=image_path('marker-shadow.png')%>',
+										iconSize:     [30, 50], // size of the icon
+										shadowSize:   [30, 64], // size of the shadow
+										iconAnchor:   [17, 58], // point of the icon which will correspond to marker's location
+										shadowAnchor: [9, 75],  // the same for the shadow
+										popupAnchor:  [-3, -60] // point from which the popup should open relative to the iconAnchor
+									});
+									if (marker=='true'){
+										L.marker([lat, lon],{icon: myIcon}).addTo(map).bindPopup(dep_n+"<br>"+dep).openPopup();
+									}
+								}
+							</script>
+
+							<script>
+								L.Routing.control({
+									waypoints: [ L.latLng(), L.latLng() ],
+									routeWhileDragging: true,
+									geocoder: L.Control.Geocoder.nominatim(),
+								}).addTo(map);
+							</script>
+
+							<!-- Se l'utente è registrato viene geolocalizzato e la mappa ricentrata sulla sua posizione approssimativa -->
+							<%if current_user%>
+								<script>
+									centra_mappa("<%= current_user.latitude %>","<%= current_user.longitude %>",'La tua posizione', 'Posizione approssimativa','9','false');
+								</script>
+							<% end %>
+						</div>
+						<div class="card-footer">
+							<button class="btn btn-sm btn-outline-info mt-1 mb-2" style="width: 100%" onclick="window.location.href='/leaflet_osm_map'"> Visualizza a schermo intero </button>
+							<% if current_user %>
+								<%= button_to 'Cerca intorno a te', get_user_coord_user_path(current_user) , method: :patch, class: "btn btn-sm btn-outline-info mb-2", style: "width:100%"%>
+							<% end %>
+						</div>
+					</div>
+				</div>
+
+				<!-- Meteo -->
+				<div class="col-lg-12 col-md-6">
+					<div class="card mb-4" style="height: 95%">
+						<div class="card-header text-center"> 
+							<label class="h3 my-3"> Meteo <i class="bi bi-cloud-sun mx-2"></i> </label>
+						</div>
+						<div class="card-body text-center">
+							<% if local_assigns.has_key? :icon %>
+								<label class="bg-white px-2 py-2" style="border-radius: 0.25rem; width: fit-content"><img src= <%=image_path(icon)%> ></label>
+								<div class="row mt-4">
+									<div class="col-xl-12">
+										<table width="100%">
+											<tr>
+												<td width="33%"><label class="h4 mb-0"><i class="bi bi-thermometer-half"> Temperatura </i></label></td>
+												<td width="33%"><label class="h4 mb-0"><i class="bi bi-droplet-half"> Umidità </i></label></td>
+												<td width="33%"><label class="h4 mb-0"><i class="bi bi-clouds"> Nuvole </i></label></td>
+											</tr>
+											<tr>
+												<td width="33%"><label class="small mb-3"> <%=temperatura%>°C </label></td>
+												<td width="33%"><label class="small mb-3"> <%=umidità%> </label></td>
+												<td width="33%"><label class="small mb-3"> <%=cc%> </label></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xl-6">
+										<table width="100%">
+											<tr><td colspan="2"><label class="h4 mb-0"><i class="bi bi-wind"> Vento </i></label></td></tr>
+											<tr>
+												<td width="50%"><label> <b>velocità</b> </label></td>
+												<td width="50%"><label> <b>direzione</b> </label></td>
+											</tr>
+											<tr>
+												<td width="50%"><label class="small mb-3"> <%=velocità%> </label></td>
+												<td width="50%"><label class="small mb-3"> <%=direzione_vento%> </label></td>
+											</tr>
+										</table>
+									</div>
+									<div class="col-xl-6">
+										<table width="100%">
+											<tr><td colspan="2"><label class="h4 mb-0"><i class="bi bi-cloud-rain"> Precipitazioni </i></label></td></tr>
+											<tr>
+												<td width="50%"><label> <b>tipo</b> </label></td>
+												<td width="50%"><label> <b>quantità</b> </label></td>
+											</tr>
+											<tr>
+												<td width="50%"><label class="small mb-3"> <%=prec_type%> </label></td>
+												<td width="50%"><label class="small mb-3"> <%=pa%> </label></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							<%end%>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+    <!-- Modal che si sovrappone al sito durante i caricamenti -->
+    <%= render 'layouts/modal_loading' %>
+
+</body>
+</html>

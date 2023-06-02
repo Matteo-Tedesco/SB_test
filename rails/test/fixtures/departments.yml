@@ -1,0 +1,35 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  name: MyString
+  manager: MyString
+  via: MyString
+  civico: MyString
+  cap: MyString
+  citta: MyString
+  provincia: MyString
+  latitude: MyString
+  longitude: MyString
+  dep_map: MyString
+  dep_event: MyString
+  description: MyText
+  floors: 1
+  number_of_spaces: 1
+
+two:
+  user: two
+  name: MyString
+  manager: MyString
+  via: MyString
+  civico: MyString
+  cap: MyString
+  citta: MyString
+  provincia: MyString
+  latitude: MyString
+  longitude: MyString
+  dep_map: MyString
+  dep_event: MyString
+  description: MyText
+  floors: 1
+  number_of_spaces: 1

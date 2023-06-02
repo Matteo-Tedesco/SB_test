@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  department: one
+  dep_name: MyString
+  day: MyString
+  state: MyString
+  apertura: 2023-05-26 11:16:45
+  chiusura: 2023-05-26 11:16:45
+
+two:
+  department: two
+  dep_name: MyString
+  day: MyString
+  state: MyString
+  apertura: 2023-05-26 11:16:45
+  chiusura: 2023-05-26 11:16:45
