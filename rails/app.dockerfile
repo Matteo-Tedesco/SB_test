@@ -10,7 +10,7 @@ ARG APP_USER_UID=7084
 ARG APP_GROUP_GID=2001
 
 #WORKDIR /usr/src/app
-RUN apt-get update -qq && apt-get install -y curl && curl -sL https://deb.nodesource.com/setup_16.x | bash  && apt-get install -y nodejs postgresql-client && npm install --global yarn
+RUN apt-get update -qq && apt-get install -y curl && curl -sL https://deb.nodesource.com/setup_20.x | bash  && apt-get install -y nodejs postgresql-client && npm install --global yarn
 RUN addgroup --gid $APP_GROUP_GID --system $APP_GROUP && \
       adduser --system --shell /sbin/nologin --uid $APP_USER_UID --ingroup $APP_GROUP $APP_USER && \
       mkdir $APP_PATH && \
